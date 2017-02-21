@@ -27,9 +27,17 @@ class App extends Component {
   handleSubmitTodo = (event) => {
     event.preventDefault();
 
-    // If nothing entered do nothing
+    // If nothing entered, do nothing
     if (this.state.input === '') return false;
 
+    const exist = this.state.data.find((value, index) => {
+      return value.text === this.state.input;
+    })
+
+    if (exist !== undefined) {
+      this.reset();
+      return false;
+    }
 
     // Assemble data
     const todo = {text: this.state.input, id: window.id++}
@@ -37,7 +45,11 @@ class App extends Component {
     this.state.data.push(todo);
     // Update state
     this.setState({data: this.state.data, input : ''});
-    document.getElementById('todoBox').value = '';
+    this.reset();
+  }
+
+  reset = () => {
+      document.getElementById('todoBox').value = '';
   }
 
   hanleRemoveTodo = (event, id) => {
