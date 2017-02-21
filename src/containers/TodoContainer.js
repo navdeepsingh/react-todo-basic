@@ -7,17 +7,18 @@ import TodoList from '../components/TodoList';
 window.id = 0;
 class App extends Component {
 
-  // Initialise state here ES6 constructor method or
-  state = { data : [], input : ''}
-  /*constructor(props){
+  // Initialise state here in ES7 or ES6 constructor method
+  //state = { data : [], input : ''}
+  constructor(props){
     // Pass props to parent class
     super(props);
+    this.hanleRemoveTodo = this.hanleRemoveTodo.bind(this);
     // Set initial state
     this.state = {
       data: [],
       input : ''
     }
-  }*/
+  }
 
   handleChange = (e) => {
     this.setState({ input: e.target.value });
@@ -26,8 +27,12 @@ class App extends Component {
   handleSubmitTodo = (event) => {
     event.preventDefault();
 
-    const todoValue = this.state.input;
-    const todo = {text: todoValue, id: window.id++}
+    // If nothing entered do nothing
+    if (this.state.input === '') return false;
+
+
+    // Assemble data
+    const todo = {text: this.state.input, id: window.id++}
     // Update data
     this.state.data.push(todo);
     // Update state
@@ -35,7 +40,9 @@ class App extends Component {
     document.getElementById('todoBox').value = '';
   }
 
-  hanleRemoveTodo = (id) => {
+  hanleRemoveTodo = (event, id) => {
+    event.preventDefault();
+
     const remainder = this.state.data.filter((todo) => {
        if(todo.id !== id) return todo;
     });

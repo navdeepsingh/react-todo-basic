@@ -4,7 +4,7 @@ const TodoList = (props) => {
 
   const TodoNode = props.todos;
   const list = TodoNode.map((todo) => {
-    return (<a href="" className="list-group-item" onClick={(e) => {e.preventDefault(); props.remove(todo.id)}}>{todo.text}</a>)
+    return (<a href="" className="list-group-item" onClick={(e) => {props.remove(e, todo.id)}}>{todo.text}</a>)
   })
 
   return (

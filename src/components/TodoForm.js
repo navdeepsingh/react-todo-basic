@@ -2,8 +2,6 @@ import React from 'react';
 
 // Stateless Function Component
 const TodoForm = (props) => {
-  // Input Tracker
-  let textInput = null;
 
   return (
     <div>
